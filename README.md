@@ -1,14 +1,13 @@
-# Welcome to your CDK TypeScript project
+# CDK Project to deploy Go Lambda
 
-This is a blank project for CDK development with TypeScript.
+- `npm install` install all dependencies
+- `go get github.com/aws/aws-lambda-go` cd into lambda pull down dependencies
+- `GOOS=linux GOARCH=amd64 go build main.go` build go code using the linux parameters
+- `cdk bootstrap` cd to root bootstrap AWS credentials
+- `cdk synth` build a cdk.out file
+- `cdk deploy` deploy code to AWS
+- test endpoint -
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+## GO Build
 
-## Useful commands
-
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `npx cdk deploy`  deploy this stack to your default AWS account/region
-* `npx cdk diff`    compare deployed stack with current state
-* `npx cdk synth`   emits the synthesized CloudFormation template
+- `GOOS=linux GOARCH=amd64 go build main.go` build your Go code for the Linux environment
