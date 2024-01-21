@@ -24,7 +24,7 @@ func main() {
 
     // MongoDB database and collection names.
     dbName := "your_database_name"
-    collectionName := "equine"
+    collectionName := "equines"
 
     // Create a context with a timeout for database operations.
     ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
