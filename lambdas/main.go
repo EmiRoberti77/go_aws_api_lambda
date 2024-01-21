@@ -21,7 +21,7 @@ func newApp(id string) *App {
 
 func (app *App) Handler(request events.APIGatewayProxyRequest ) (events.APIGatewayProxyResponse, error) {
 	responseBody := map[string]string{
-		"message":"Hi you have hit the route",
+		"message":"SUCCESS GO ENDPOINT ROUTE",
 	}
 
 	responseJSON, err := json.Marshal(responseBody)
