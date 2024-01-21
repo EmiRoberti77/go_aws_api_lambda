@@ -23,5 +23,6 @@ export class AwsLambdaGoStack extends cdk.Stack {
     const integration = new LambdaIntegration(myFunction);
     const resource = gateway.root.addResource('sync');
     resource.addMethod('GET', integration);
+    resource.addMethod('POST', integration);
   }
 }

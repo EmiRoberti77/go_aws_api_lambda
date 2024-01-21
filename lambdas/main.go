@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/aws/aws-lambda-go/events"
@@ -9,8 +10,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
-
-// Equine represents the data structure for the object to be inserted.
 type Equine struct {
     UELN           int    `bson:"ueln"`
     Type           string `bson:"type"`
@@ -19,9 +18,7 @@ type Equine struct {
     VaccinationDate string `bson:"vaccinationDate"`
 }
 
-// Handler is the Lambda handler function.
 func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-    // Your MongoDB connection string, database, and collection names.
     connectionString := "mongodb+srv://vetapp:vetapp123@cluster0.uwhi5uh.mongodb.net/?retryWrites=true&w=majority"
     dbName := "vetapp"
     collectionName := "equines"
@@ -39,14 +36,12 @@ func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (events
     collection := database.Collection(collectionName)
 
     // Create an Equine object.
-    equine := Equine{
-        UELN:           29996767,
-        Type:           "horse type GO",
-        Color:          "pink",
-        Vaccination:    "pending",
-        VaccinationDate: "12/2/2024",
-    }
-
+		var equine Equine
+		err = json.Unmarshal([]byte(request.Body), &equine)
+		if(err != nil){
+       return events.APIGatewayProxyResponse{StatusCode: 400, Body: "Bad Request ER01"}, err
+		}
+		
     // Insert the Equine object into the collection.
     _, err = collection.InsertOne(ctx, equine)
     if err != nil {
